@@ -1,0 +1,24 @@
+/* Native Android scrolling hotfix.
+   WebView owns a full-height scroll container while the bottom tabs stay fixed. */
+html,
+body.native-app,
+body.native-app #root {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+body.native-app .app-shell {
+  height: 100dvh;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
+  scrollbar-width: none;
+}
+
+body.native-app .app-shell::-webkit-scrollbar {
+  display: none;
+}
