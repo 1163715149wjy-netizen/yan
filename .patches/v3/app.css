@@ -13,3 +13,18 @@
 .date-row input{flex:0 0 138px}
 .panel-title input[type="date"]{flex:0 0 137px}
 @media(max-width:470px){.shell{padding:82px 15px 112px}.topbar{margin-bottom:22px}.topbar h1{font-size:30px;letter-spacing:-.045em}.topbar p:not(.brand){font-size:15px}.top-actions{margin-top:13px}.panel-title h2{font-size:22px}.panel-title input[type="date"]{flex-basis:132px;font-size:13px;padding-left:10px;padding-right:8px}.date-row h2{font-size:22px}.date-row input{flex-basis:132px;font-size:13px;padding-left:10px;padding-right:8px}}
+
+.inline-actions{display:flex;gap:7px;align-items:center}.inline-actions button{border:0;background:var(--violet-bg);color:var(--violet);border-radius:999px;padding:7px 10px;font-size:13px;font-weight:750;white-space:nowrap}.word-rows>article{display:flex;align-items:center;gap:10px;min-width:0;border-bottom:1px solid var(--line);padding:14px 0}.word-rows>article:last-child{border:0}.word-rows>article>div{flex:1;min-width:0}.word-rows b{display:block;font-size:16px;line-height:1.3;overflow-wrap:anywhere}.word-rows small{display:block;margin-top:3px;color:var(--muted);font-size:13px;overflow-wrap:anywhere}.word-rows .mastered b,.word-rows .mastered small{text-decoration:line-through;color:var(--muted)}.sheet textarea{width:100%;min-height:126px;resize:vertical;border:1px solid var(--line);background:color-mix(in srgb,var(--white) 85%,var(--violet-bg));color:var(--ink);border-radius:14px;padding:11px 12px;font:inherit;line-height:1.5}@media(max-width:470px){.inline-actions{gap:5px}.inline-actions button{padding:6px 8px;font-size:12px}.word-rows>article{gap:7px}.word-rows b{font-size:15px}}
+
+/* Keep explanatory copy and the exam date in separate rows on small phones. */
+.shell{padding-bottom:176px}
+.hero-card{min-height:0;display:flex;flex-direction:column;align-items:stretch}
+.hero-card label{position:static;align-self:flex-end;justify-content:flex-end;margin-top:14px}
+.hero-copy{max-width:none;margin-bottom:0}
+@media(max-width:470px){.shell{padding-top:84px;padding-bottom:176px}.hero-card{padding:23px}.hero-card label{align-self:stretch;justify-content:space-between;margin-top:16px}.hero-card input[type="date"]{flex:0 0 164px;font-size:15px}.quick-grid{margin-bottom:8px}}
+
+.word-source{display:flex;align-items:center;gap:10px;margin:14px 0 4px;color:var(--muted);font-size:14px}.word-source span{white-space:nowrap}.word-source select{flex:1;min-width:0;border:1px solid color-mix(in srgb,var(--violet) 16%,var(--line));background:linear-gradient(135deg,color-mix(in srgb,var(--white) 78%,var(--violet-bg)),var(--white));color:var(--ink);border-radius:999px;padding:10px 12px;font:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
+
+/* Keep the two header actions visually equal. */
+.theme-toggle,.date-chip{width:128px;height:52px;padding:0;display:inline-flex;align-items:center;justify-content:center;font-size:16px}
+@media(max-width:470px){.theme-toggle,.date-chip{width:124px;height:50px;padding:0;font-size:15px}}
