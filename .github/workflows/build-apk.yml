@@ -26,7 +26,6 @@ jobs:
           cp .patches/v3/App.tsx src/App.tsx
           cp .patches/v3/app.css src/app.css
           cp .patches/v3/build.gradle android/app/build.gradle
-          base64 --decode .source-parts/kaoyan-life-release.jks.b64 > android/app/kaoyan-life-release.jks
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -55,7 +54,7 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: kaoyan-life-fixed-signature
-          path: android/app/build/outputs/apk/release/app-release.apk
+          name: kaoyan-life-unsigned-for-signing
+          path: android/app/build/outputs/apk/release/app-release-unsigned.apk
           if-no-files-found: error
           retention-days: 30
