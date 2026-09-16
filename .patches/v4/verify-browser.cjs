@@ -1,0 +1,25 @@
+const {chromium}=require('playwright');
+const assert=require('node:assert/strict');
+(async()=>{
+const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+const context=await browser.newContext({viewport:{width:393,height:852},timezoneId:'Asia/Shanghai'});
+const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
+await page.clock.install({time:new Date('2026-09-17T08:00:00+08:00')});
+await page.goto('http://127.0.0.1:5173');
+await page.evaluate(()=>{localStorage.clear();localStorage.setItem('kaoyan.tasks.v4',JSON.stringify([{id:123,subject:'数学一',text:'原有任务',date:'2026-09-16',done:true}]));localStorage.setItem('kaoyan.studies.v2',JSON.stringify([{id:88,subject:'数学一',minutes:90,date:'2026-09-16',note:'原有学习'}]));});
+await page.reload();await page.waitForTimeout(300);
+let tasks=await page.evaluate(()=>JSON.parse(localStorage.getItem('kaoyan.tasks.v4')));assert.equal(tasks.length,113);assert.equal(tasks.find(t=>t.id===123).done,true);assert.equal(new Set(tasks.filter(t=>t.id!==123).map(t=>t.date)).size,28);
+assert.equal(await page.getByText('851：第1~2讲起步，累计约2.5h原视频进度 + 基础题',{exact:true}).count(),1);
+await page.screenshot({path:'plan-home.png',fullPage:true});
+await page.getByRole('button',{name:'学习',exact:true}).click();
+await page.locator('.task-rows .tick').first().click();await page.waitForTimeout(100);
+await page.reload();await page.waitForTimeout(200);
+tasks=await page.evaluate(()=>JSON.parse(localStorage.getItem('kaoyan.tasks.v4')));assert.equal(tasks.length,113);assert.equal(tasks.filter(t=>t.date==='2026-09-17'&&t.done).length,1);
+await page.getByRole('button',{name:'学习',exact:true}).click();
+await page.locator('input[type=date]').first().fill('2026-10-14');
+assert.equal(await page.getByText('851一轮收官：离散 + 非线性；39~40按薄弱点选择复习',{exact:true}).count(),1);
+assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+await page.screenshot({path:'plan-last-day.png',fullPage:true});
+assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('kaoyan.studies.v2'))[0].minutes),90);assert.deepEqual(errors,[]);
+console.log('PASS: 28 days / 112 tasks; existing records preserved; first and last day visible; checkmarks survive reload; no duplicate import; 393px no overflow; no JS errors');await browser.close();
+})();
